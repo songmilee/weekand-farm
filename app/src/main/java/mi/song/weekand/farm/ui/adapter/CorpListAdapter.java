@@ -2,6 +2,8 @@ package mi.song.weekand.farm.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +17,28 @@ import java.util.ArrayList;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.CorpItemBinding;
 import mi.song.weekand.farm.model.Corp;
+import mi.song.weekand.farm.ui.view.CorpDiaryActivity;
 import mi.song.weekand.farm.util.TimeUtils;
 
 public class CorpListAdapter extends RecyclerView.Adapter<CorpListAdapter.CorpVH> {
-    private ArrayList<Corp> corpList = new ArrayList<>();
+    private ArrayList<Corp> corpList;
     private Activity activity;
 
-    public CorpListAdapter(Activity activity) { this.activity = activity; }
-    public void addItem(Corp item) { corpList.add(item);}
+    public CorpListAdapter(Activity activity) {
+        this.activity = activity;
+        corpList = new ArrayList<>();
+    }
+
+    public void addItem(Corp item) {
+        corpList.add(item);
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
     public CorpVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CorpVH(LayoutInflater.from(activity).inflate(R.layout.corp_item, parent, false));
+        CorpItemBinding corpItemBinding = CorpItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new CorpVH(corpItemBinding);
     }
 
     @Override
@@ -40,17 +51,25 @@ public class CorpListAdapter extends RecyclerView.Adapter<CorpListAdapter.CorpVH
         return corpList.size();
     }
 
-    public class CorpVH extends RecyclerView.ViewHolder {
-        CorpItemBinding corpItemBinding;
+    public class CorpVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+        CorpItemBinding binding;
 
-        public CorpVH(@NonNull View itemView) {
-            super(itemView);
-            corpItemBinding = DataBindingUtil.setContentView(activity, R.layout.corp_item);
+        public CorpVH(@NonNull CorpItemBinding corpItemBinding){
+            super(corpItemBinding.getRoot());
+            binding = corpItemBinding;
+            itemView.setOnClickListener(this);
         }
 
         public void bindView(Corp item){
-            corpItemBinding.corpItemCreate.setText(TimeUtils.parseLongTime(item.getStartDate()));
-            corpItemBinding.corpItemName.setText(item.getName());
+            binding.corpItemCreate.setText(TimeUtils.parseLongTime(item.getStartDate()));
+            binding.corpItemName.setText(item.getName());
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(activity, CorpDiaryActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
         }
     }
 }

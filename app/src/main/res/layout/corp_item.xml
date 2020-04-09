@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_corner"
+        android:elevation="3dp">
 
         <ImageView
             android:id="@+id/corp_item_iv"

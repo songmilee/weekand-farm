@@ -2,11 +2,12 @@ package mi.song.weekand.farm.ui.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.ActivityCorpListBinding;
+import mi.song.weekand.farm.model.Corp;
 import mi.song.weekand.farm.ui.adapter.CorpListAdapter;
 
 
@@ -28,5 +29,7 @@ public class CorpListActivity extends AppCompatActivity {
     private void init(){
         adapter = new CorpListAdapter(this);
         binding.corpList.setAdapter(adapter);
+        binding.corpList.setLayoutManager(new LinearLayoutManager(this));
+        adapter.addItem(new Corp("Test Corp", null, "test memo"));
     }
 }
