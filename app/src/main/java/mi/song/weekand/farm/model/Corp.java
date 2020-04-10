@@ -2,6 +2,7 @@ package mi.song.weekand.farm.model;
 
 //재배 작물
 public class Corp {
+    Long id = -1L;
     String name;
     Long startDate;
     String[] imgList;
@@ -13,6 +14,10 @@ public class Corp {
         this.memo = memo;
 
         startDate = System.currentTimeMillis();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
