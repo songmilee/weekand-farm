@@ -1,4 +1,4 @@
-package mi.song.weekand.farm.ui.view;
+package mi.song.weekand.farm.ui.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import mi.song.weekand.farm.R;
+import mi.song.weekand.farm.ui.corplist.CorpListActivity;
 
 public class SplashActivity extends AppCompatActivity {
     final private int SPLASH_TIME = 1500;

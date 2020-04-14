@@ -3,7 +3,7 @@
     <data>
         <variable
             name="corp_item"
-            type="mi.song.weekand.farm.ui.adapter.CorpListAdapter.CorpVH" />
+            type="mi.song.weekand.farm.ui.corplist.CorpListAdapter" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

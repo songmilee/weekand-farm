@@ -1,22 +1,19 @@
-package mi.song.weekand.farm.ui.adapter;
+package mi.song.weekand.farm.ui.corplist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import mi.song.weekand.farm.databinding.CorpItemBinding;
 import mi.song.weekand.farm.model.Corp;
-import mi.song.weekand.farm.ui.view.CorpDiaryActivity;
+import mi.song.weekand.farm.ui.corpdiary.CorpDiaryActivity;
 import mi.song.weekand.farm.util.TimeUtils;
 
 public class CorpListAdapter extends RecyclerView.Adapter<CorpListAdapter.CorpVH> {

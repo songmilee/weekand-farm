@@ -1,4 +1,4 @@
-package mi.song.weekand.farm.ui.view;
+package mi.song.weekand.farm.ui.corpdiary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
