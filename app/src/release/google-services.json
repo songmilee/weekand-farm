@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "619037441660",
+    "firebase_url": "https://corp-diary.firebaseio.com",
+    "project_id": "corp-diary",
+    "storage_bucket": "corp-diary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619037441660:android:c515a57cc2a03578a553f9",
+        "android_client_info": {
+          "package_name": "mi.song.weekand.farm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619037441660-di2q4us0p1qp50c50ug1mp28ena8dr69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqo7sM_4py2ciUk6mkKFqI1CDP-IUOxJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619037441660-di2q4us0p1qp50c50ug1mp28ena8dr69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

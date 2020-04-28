@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.ui.corplist.CorpListActivity;
+import mi.song.weekand.farm.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
     final private int SPLASH_TIME = 1500;
@@ -21,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, CorpListActivity.class));
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();
             }
         }, SPLASH_TIME);

@@ -2,4 +2,11 @@
     <string name="app_name">Weekand Farm</string>
 
     <string name="time">2020-04-04</string>
+
+    <string name="login_str">로그인</string>
+    <string name="sign_in">회원가입</string>
+    <string name="login_email">Email</string>
+    <string name="login_pw">Password</string>
+    <string name="login_from_not_valid">이메일/비밀번호를 입력해주세요</string>
+
 </resources>
