@@ -4,4 +4,7 @@
     <dimen name="big_txt_size">20sp</dimen>
 
     <dimen name="corner_radius">10dp</dimen>
+    <dimen name="user_profile_appbar_height">250dp</dimen>
+
+    <dimen name="common_margin">10dp</dimen>
 </resources>

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import mi.song.weekand.farm.R;
-import mi.song.weekand.farm.ui.corplist.CorpListActivity;
 import mi.song.weekand.farm.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {

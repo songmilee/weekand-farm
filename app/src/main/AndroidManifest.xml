@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.LoginActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".ui.corplist.add.CorpAddActivity" />
-        <activity android:name=".ui.corpdiary.CorpDiaryActivity" />
+        <activity android:name=".ui.main.MainActivity"></activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.corplist.CorpListActivity" />
     </application>
 
 </manifest>

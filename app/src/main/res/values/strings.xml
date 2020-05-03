@@ -9,4 +9,10 @@
     <string name="login_pw">Password</string>
     <string name="login_from_not_valid">이메일/비밀번호를 입력해주세요</string>
 
+    <string name="menu_name_home">Home</string>
+    <string name="menu_name_user">User</string>
+    <string name="menu_name_setting">Settings</string>
+
+    <string name="user_menu_edit">Edit</string>
+
 </resources>

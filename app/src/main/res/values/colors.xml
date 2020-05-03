@@ -9,6 +9,7 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGray">#CAC7C7</color>
 
     <color name="colorTransparent">#00000000</color>
 </resources>
