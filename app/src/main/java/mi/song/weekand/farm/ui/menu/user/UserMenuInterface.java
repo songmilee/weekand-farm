@@ -14,5 +14,6 @@ public interface UserMenuInterface {
         boolean validateDisplayName(String name);
         void updateEmail(String email);
         void updateProfile(String userName, String photoUri);
+        boolean updateInfo(String userName, String photoUri, String email);
     }
 }

@@ -130,16 +130,8 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
         String email = binding.userInfoEmail.getText().toString();
         String name = binding.userInfoName.getText().toString();
 
-        if(presenter.validateDisplayName(name)){
-            presenter.updateProfile(name, photoUri);
-        } else {
-            setEditable(false);
-            showEditMenu(false);
-        }
-
-        if(presenter.validateEmailForm(email)){
-            presenter.updateEmail(email);
-        } else {
+        boolean result = presenter.updateInfo(name, photoUri, email);
+        if(!result){
             setEditable(false);
             showEditMenu(false);
         }

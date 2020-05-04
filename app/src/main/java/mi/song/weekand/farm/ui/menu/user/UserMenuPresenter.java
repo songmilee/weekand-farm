@@ -73,4 +73,22 @@ public class UserMenuPresenter implements UserMenuInterface.Presenter {
         view.setEditable(false);
         view.showEditMenu(false);
     }
+
+    @Override
+    public boolean updateInfo(String userName, String photoUri, String email) {
+
+        if(validateDisplayName(userName) || photoUri != null){
+            updateProfile(userName, photoUri);
+        } else {
+            return false;
+        }
+
+        if(validateEmailForm(email)){
+            updateEmail(email);
+        } else {
+            return false;
+        }
+
+        return true;
+    }
 }
