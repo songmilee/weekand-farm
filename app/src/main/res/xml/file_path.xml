@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="file_paths" path="." />
+    <external-path  name="external_files"  path="Android/data/mi.song.weekand.farm/files/Pictures"/>
+    <external-cache-path name="external_files" path="Android/data/mi.song.weekand.farm/files/Pictures"/>
+</paths>

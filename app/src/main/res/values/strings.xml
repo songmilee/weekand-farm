@@ -13,6 +13,17 @@
     <string name="menu_name_user">User</string>
     <string name="menu_name_setting">Settings</string>
 
+    <string name="user_hint_name">User name</string>
+    <string name="user_hint_phone">Phone Number</string>
+
+    <string name="user_update_info">사용자 정보가 업데이트 되었습니다.</string>
+
     <string name="user_menu_edit">Edit</string>
+
+    <string name="user_menu_img_title">사진 선택</string>
+    <string-array name="user_menu_img_dialog">
+        <item>사진첩</item>
+        <item>카메라</item>
+    </string-array>
 
 </resources>

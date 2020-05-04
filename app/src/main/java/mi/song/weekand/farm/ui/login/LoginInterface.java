@@ -3,14 +3,16 @@ package mi.song.weekand.farm.ui.login;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import mi.song.weekand.farm.base.BaseInterface;
+
 public interface LoginInterface {
-    interface View{
+
+    interface View extends BaseInterface.View{
         void launchCorpActivity(FirebaseUser user);
         void setEmailFieldNotify(String msg);
         void setPwFieldNotify(String msg);
         void showProgress();
         void dismissProgress();
-        void sendMessage(String msg);
     }
 
     interface Presenter{

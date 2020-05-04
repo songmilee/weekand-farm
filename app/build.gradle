@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "mi.song.weekand.farm"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,7 @@ ext {
     material_version = "1.1.0"
     firebase_auth = "19.1.0"
     firestore_version = "21.2.1"
+    glide_version = "4.11.0"
 }
 
 dependencies {
@@ -89,6 +90,9 @@ dependencies {
 
     //firebase firesotre
     implementation "com.google.firebase:firebase-firestore:$firestore_version"
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
 }
 repositories {

@@ -35,20 +35,21 @@
 
                     <ImageView
                         android:id="@+id/user_profile_img"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/round_corner"
-                        app:layout_collapseMode="parallax"/>
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_person_black_24dp"
+                        app:layout_collapseMode="parallax"
+                        />
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/user_toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         app:layout_collapseMode="pin"
-                        app:menu="@menu/user_menu"
                         app:popupTheme="@style/AppTheme"
+                        app:menu="@menu/user_menu"
                         />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -64,20 +65,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_marginTop="@dimen/common_margin">
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:padding="@dimen/common_margin">
                     <EditText
+                        android:id="@+id/user_info_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="Display name"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/user_hint_name"
                         android:layout_marginBottom="@dimen/common_margin"/>
 
                     <EditText
+                        android:id="@+id/user_info_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="@string/login_email"
+                        android:inputType="textEmailAddress"
                         android:layout_marginBottom="@dimen/common_margin"/>
+
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>

@@ -3,11 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/user_action_edit"
+        android:id="@+id/user_menu_edit"
         android:title="@string/menu_name_user"
         android:icon="@drawable/ic_edit_24dp"
         android:iconTint="@color/colorPrimaryLight"
         app:showAsAction="ifRoom"
         />
+
+    <item
+        android:id="@+id/user_menu_ok"
+        android:title="@string/menu_name_user"
+        android:icon="@drawable/ic_check_24dp"
+        android:iconTint="@color/colorPrimaryLight"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/user_menu_add"
+        android:title="@string/menu_name_user"
+        android:icon="@drawable/ic_add_24dp"
+        android:iconTint="@color/colorPrimaryLight"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 
 </menu>
