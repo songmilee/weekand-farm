@@ -15,8 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.ActivityMainBinding;
 import mi.song.weekand.farm.ui.menu.HomeFragment;
-import mi.song.weekand.farm.ui.menu.SettingFragment;
-import mi.song.weekand.farm.ui.menu.UserFragment;
+import mi.song.weekand.farm.ui.menu.setting.SettingFragment;
+import mi.song.weekand.farm.ui.menu.user.UserFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

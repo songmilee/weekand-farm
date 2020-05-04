@@ -1,4 +1,4 @@
-package mi.song.weekand.farm.ui.menu;
+package mi.song.weekand.farm.ui.menu.user;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,13 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
-import java.io.IOException;
 
 import mi.song.weekand.farm.BuildConfig;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentUserBinding;
-import mi.song.weekand.farm.ui.menu.user.UserMenuInterface;
-import mi.song.weekand.farm.ui.menu.user.UserMenuPresenter;
 import mi.song.weekand.farm.util.FileUtils;
 import mi.song.weekand.farm.util.RequestCode;
 
@@ -106,7 +103,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
         //set user info
         binding.userInfoName.setText(user.getDisplayName());
         binding.userInfoEmail.setText(user.getEmail());
-        Glide.with(this).load(user.getPhotoUrl()).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userProfileImg);
+        Glide.with(this).load(user.getPhotoUrl()).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
     }
 
     @Override
@@ -125,8 +122,6 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
 
         binding.userInfoEmail.setFocusable(setEdit);
         binding.userInfoEmail.setFocusableInTouchMode(setEdit);
-
-        binding.userProfileImg.setClickable(setEdit);
     }
 
     private void updateInfo(){
@@ -229,10 +224,10 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
                 Uri pUri = data.getData();
                 photoUri = pUri.toString();
 
-                Glide.with(this).load(pUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userProfileImg);
+                Glide.with(this).load(pUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
             }
         } else if(requestCode == RequestCode.REQ_CAMERA_IMG && resultCode == RESULT_OK){
-            Glide.with(this).load(photoUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userProfileImg);
+            Glide.with(this).load(photoUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
         }
     }
 }

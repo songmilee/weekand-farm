@@ -26,4 +26,8 @@
         <item>카메라</item>
     </string-array>
 
+    <string-array name="setting_menu_list">
+        <item name="log_out">Log out</item>
+    </string-array>
+
 </resources>

@@ -7,4 +7,6 @@
     <dimen name="user_profile_appbar_height">250dp</dimen>
 
     <dimen name="common_margin">10dp</dimen>
+
+    <dimen name="setting_divider_height">5dp</dimen>
 </resources>
