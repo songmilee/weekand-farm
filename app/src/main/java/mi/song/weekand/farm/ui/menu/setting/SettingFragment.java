@@ -52,7 +52,7 @@ public class SettingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
-                    case 0:
+                    case 1:
                         logOut();
                         launchLoginActivity();
                         break;
