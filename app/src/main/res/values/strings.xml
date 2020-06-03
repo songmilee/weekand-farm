@@ -10,6 +10,7 @@
     <string name="login_from_not_valid">이메일/비밀번호를 입력해주세요</string>
 
     <string name="menu_name_home">Home</string>
+    <string name="menu_name_add">Add</string>
     <string name="menu_name_user">User</string>
     <string name="menu_name_setting">Settings</string>
 
@@ -27,7 +28,11 @@
     </string-array>
 
     <string-array name="setting_menu_list">
+        <item name="sw_info">SW 정보</item>
         <item name="log_out">Log out</item>
     </string-array>
+
+    <string name="title">Title</string>
+    <string name="contents">Contents</string>
 
 </resources>
