@@ -3,6 +3,7 @@ package mi.song.weekand.farm.ui.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -98,6 +99,11 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
     @Override
     public void dismissProgress() {
         binding.loginProgress.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

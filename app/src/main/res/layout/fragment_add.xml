@@ -68,6 +68,13 @@
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/add_progress"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
     </FrameLayout>
 
 </layout>

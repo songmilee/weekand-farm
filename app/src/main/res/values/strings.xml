@@ -35,4 +35,7 @@
     <string name="title">Title</string>
     <string name="contents">Contents</string>
 
+    <string name="save_success">일기 저장에 성공하였습니다.</string>
+    <string name="save_fail">일기 저장에 실패하였습니다.</string>
+
 </resources>

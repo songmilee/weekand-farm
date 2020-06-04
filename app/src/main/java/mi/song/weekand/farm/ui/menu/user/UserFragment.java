@@ -31,6 +31,7 @@ import mi.song.weekand.farm.BuildConfig;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentUserBinding;
 import mi.song.weekand.farm.util.FileUtils;
+import mi.song.weekand.farm.util.ImageUtils;
 import mi.song.weekand.farm.util.RequestCode;
 
 import static android.app.Activity.RESULT_OK;
@@ -152,60 +153,8 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
 
     @Override
     public void showPhotoDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                            .setTitle(R.string.user_menu_img_title)
-                            .setItems(R.array.user_menu_img_dialog, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which){
-                                        case 0:
-                                            getImageByPhoto();
-                                            break;
-                                        case 1:
-                                            getImageByCamera();
-                                            break;
-                                    }
-                                }
-                            })
-                            .create();
 
-        dialog.show();
-    }
-
-    private void getImageByPhoto(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-
-        startActivityForResult(intent, RequestCode.REQ_PHOTO_IMG);
-    }
-
-    private void getImageByCamera(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-            File photoFile = null;
-            FileUtils fileUtils = new FileUtils();
-            try{
-                photoFile = fileUtils.createTempFile(getActivity());
-
-                if(photoFile != null){
-                    Uri pUri = null;
-
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        pUri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID, photoFile);
-                    } else {
-                        pUri = Uri.fromFile(photoFile);
-                    }
-
-                    photoUri = pUri.toString();
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, pUri);
-                    startActivityForResult(intent, RequestCode.REQ_CAMERA_IMG);
-                }
-            } catch (Exception e) {
-                Log.d(TAG, "error occured : " + e.getMessage());
-            }
-        }
+        new ImageUtils(this).showPhotoSelectDialog(photoUri);
     }
 
     @Override
