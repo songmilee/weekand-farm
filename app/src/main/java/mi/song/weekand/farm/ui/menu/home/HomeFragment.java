@@ -57,6 +57,8 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
 
     @Override
     public void setCorpItemData(Map<String, Object> data) {
+        binding.homeItemList.setVisibility(View.VISIBLE);
+        binding.noItemMsg.setVisibility(View.INVISIBLE);
         itemAdapter.addData(data);
     }
 }

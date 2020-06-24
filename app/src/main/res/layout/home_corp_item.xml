@@ -9,8 +9,9 @@
     <ImageView
         android:id="@+id/corp_item_img"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/img_placeholder"/>
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_placeholder" />
 
     <TextView
         android:id="@+id/corp_item_title"
