@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentAddBinding;
+import mi.song.weekand.farm.model.Photo;
 import mi.song.weekand.farm.util.ImageUtils;
 import mi.song.weekand.farm.util.RequestCode;
 
@@ -30,7 +31,7 @@ public class AddFragment extends Fragment implements AddInterface.View {
     private AddInterface.Presenter presenter;
     private FirebaseUser user;
 
-    private String photoUri = null;
+    private Photo photo;
 
     public static AddFragment newInstance() {
         AddFragment fragment = new AddFragment();
@@ -49,6 +50,7 @@ public class AddFragment extends Fragment implements AddInterface.View {
     private void init(){
         user = FirebaseAuth.getInstance().getCurrentUser();
         presenter = new AddPresenter(this, user);
+        photo = new Photo();
 
         fragmentAddBinding.addMenuToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class AddFragment extends Fragment implements AddInterface.View {
                         String contents = fragmentAddBinding.addFormContents.getText().toString();
 
                         showProgressBar();
-                        presenter.saveDiary(title, contents, photoUri);
+                        presenter.saveDiary(title, contents, photo);
                         break;
 
                     case R.id.add_menu_img_add:
@@ -81,7 +83,7 @@ public class AddFragment extends Fragment implements AddInterface.View {
 
     @Override
     public void updateImages() {
-        new ImageUtils(this).showPhotoSelectDialog(photoUri);
+        new ImageUtils(this).showPhotoSelectDialog(photo);
     }
 
     @Override
@@ -107,11 +109,11 @@ public class AddFragment extends Fragment implements AddInterface.View {
 
         if(requestCode == RequestCode.REQ_PHOTO_IMG && resultCode == Activity.RESULT_OK){
             if(data != null){
-                photoUri = data.getData().toString();
-                Glide.with(this).load(photoUri).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
+                photo.setUri(data.getData().toString());
+                Glide.with(this).load(photo.getUri()).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
             }
         } else if(resultCode == RequestCode.REQ_CAMERA_IMG && resultCode == Activity.RESULT_OK){
-            Glide.with(this).load(photoUri).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
+            Glide.with(this).load(photo.getUri()).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
         }
     }
 }

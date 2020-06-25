@@ -20,6 +20,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 
 import mi.song.weekand.farm.R;
+import mi.song.weekand.farm.model.Photo;
 
 public class AddPresenter implements AddInterface.Presenter {
     AddInterface.View view;
@@ -29,6 +30,8 @@ public class AddPresenter implements AddInterface.Presenter {
     CollectionReference ref;
     FirebaseStorage storage;
 
+    Photo photo;
+
     public AddPresenter(AddInterface.View view, FirebaseUser user){
         this.view = view;
         this.user = user;
@@ -36,13 +39,15 @@ public class AddPresenter implements AddInterface.Presenter {
         db = FirebaseFirestore.getInstance();
         ref = db.collection("corp_list");
         storage = FirebaseStorage.getInstance();
+
+        photo = new Photo();
     }
 
     @Override
-    public void saveDiary(String title, String contents, String photoUri) {
-        if(photoUri != null){
+    public void saveDiary(String title, String contents, Photo photo) {
+        if(photo.getUri() != null){
             StorageReference ref = createStoragePath();
-            ref.putFile(Uri.parse(photoUri)).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            ref.putFile(Uri.parse(photo.getUri())).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     return ref.getDownloadUrl();
@@ -61,7 +66,7 @@ public class AddPresenter implements AddInterface.Presenter {
                 }
             });
         } else {
-            insertCorpDiary(title, contents, null);
+            view.sendMessage("img를 확인해주세요");
         }
     }
 

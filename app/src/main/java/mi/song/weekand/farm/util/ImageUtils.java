@@ -16,6 +16,7 @@ import java.io.File;
 
 import mi.song.weekand.farm.BuildConfig;
 import mi.song.weekand.farm.R;
+import mi.song.weekand.farm.model.Photo;
 
 public class ImageUtils {
     private final String TAG = ImageUtils.class.getSimpleName();
@@ -27,7 +28,7 @@ public class ImageUtils {
         mContext = fragment.getContext();
     }
 
-    public void showPhotoSelectDialog(String photoUri){
+    public void showPhotoSelectDialog(Photo photo){
         AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setTitle(R.string.user_menu_img_title)
                 .setItems(R.array.user_menu_img_dialog, new DialogInterface.OnClickListener() {
@@ -38,7 +39,7 @@ public class ImageUtils {
                                 getImageByPhoto();
                                 break;
                             case 1:
-                                getImageByCamera(photoUri);
+                                getImageByCamera(photo);
                                 break;
                         }
                     }
@@ -56,7 +57,7 @@ public class ImageUtils {
         fragment.startActivityForResult(intent, RequestCode.REQ_PHOTO_IMG);
     }
 
-    private void getImageByCamera(String photoUri){
+    private void getImageByCamera(Photo photo){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if(intent.resolveActivity(mContext.getPackageManager()) != null){
@@ -74,7 +75,7 @@ public class ImageUtils {
                         pUri = Uri.fromFile(photoFile);
                     }
 
-                    photoUri = pUri.toString();
+                    photo.setUri(pUri.toString());
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, pUri);
                     fragment.startActivityForResult(intent, RequestCode.REQ_CAMERA_IMG);
                 }

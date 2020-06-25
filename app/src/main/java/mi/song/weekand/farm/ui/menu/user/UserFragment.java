@@ -25,12 +25,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.File;
-
-import mi.song.weekand.farm.BuildConfig;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentUserBinding;
-import mi.song.weekand.farm.util.FileUtils;
+import mi.song.weekand.farm.model.Photo;
 import mi.song.weekand.farm.util.ImageUtils;
 import mi.song.weekand.farm.util.RequestCode;
 
@@ -43,7 +40,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     private FirebaseUser user;
 
     private boolean isEdit = false;
-    private String photoUri = null;
+    private Photo photo = null;
 
     private UserMenuInterface.Presenter presenter;
 
@@ -75,6 +72,8 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     }
 
     private void init(){
+        photo = new Photo();
+
         binding.userToolbar.setOnMenuItemClickListener(v ->{
             int id = v.getItemId();
             switch (id){
@@ -131,7 +130,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
         String email = binding.userInfoEmail.getText().toString();
         String name = binding.userInfoName.getText().toString();
 
-        boolean result = presenter.updateInfo(name, photoUri, email);
+        boolean result = presenter.updateInfo(name, photo.getUri(), email);
         if(!result){
             setEditable(false);
             showEditMenu(false);
@@ -154,7 +153,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     @Override
     public void showPhotoDialog() {
 
-        new ImageUtils(this).showPhotoSelectDialog(photoUri);
+        new ImageUtils(this).showPhotoSelectDialog(photo);
     }
 
     @Override
@@ -163,12 +162,12 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
         if(requestCode == RequestCode.REQ_PHOTO_IMG && resultCode == RESULT_OK){
             if (data != null){
                 Uri pUri = data.getData();
-                photoUri = pUri.toString();
+                photo.setUri(pUri.toString());
 
                 Glide.with(this).load(pUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
             }
         } else if(requestCode == RequestCode.REQ_CAMERA_IMG && resultCode == RESULT_OK){
-            Glide.with(this).load(photoUri).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
+            Glide.with(this).load(photo.getUri()).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
         }
     }
 }

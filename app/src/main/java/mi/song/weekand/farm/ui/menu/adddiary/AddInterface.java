@@ -1,6 +1,7 @@
 package mi.song.weekand.farm.ui.menu.adddiary;
 
 import mi.song.weekand.farm.base.BaseInterface;
+import mi.song.weekand.farm.model.Photo;
 
 public interface AddInterface {
 
@@ -12,6 +13,6 @@ public interface AddInterface {
     }
 
     interface Presenter {
-        void saveDiary(String title, String contents, String photoUri);
+        void saveDiary(String title, String contents, Photo photo);
     }
 }
