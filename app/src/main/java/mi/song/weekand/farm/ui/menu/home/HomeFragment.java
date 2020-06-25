@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentHomeBinding;
@@ -20,6 +23,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
     FragmentHomeBinding binding;
     HomeItemAdapter itemAdapter;
     HomeInterface.Presenter presenter;
+    Set<Map<String, Object>> corpList;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -29,6 +33,11 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new HomePresenter(this);
+        corpList = new HashSet<>();
+
+        presenter.getCorpItemList();
     }
 
     @Override
@@ -41,13 +50,17 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
     }
 
     private void init(){
-        presenter = new HomePresenter(this);
-
         itemAdapter = new HomeItemAdapter();
         binding.homeItemList.setAdapter(itemAdapter);
         binding.homeItemList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+        itemAdapter.setData(corpList);
         presenter.getCorpItemList();
+
+        if(corpList.size() > 0){
+            binding.homeItemList.setVisibility(View.VISIBLE);
+            binding.noItemMsg.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -56,9 +69,13 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
     }
 
     @Override
-    public void setCorpItemData(Map<String, Object> data) {
+    public void setCorpItemData(ArrayList<Map<String, Object>> dataList) {
         binding.homeItemList.setVisibility(View.VISIBLE);
         binding.noItemMsg.setVisibility(View.INVISIBLE);
-        itemAdapter.addData(data);
+
+        for(Map<String, Object> data : dataList)
+            corpList.add(data);
+
+        itemAdapter.setData(corpList);
     }
 }

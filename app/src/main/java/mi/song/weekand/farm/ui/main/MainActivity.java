@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.ActivityMainBinding;
 import mi.song.weekand.farm.ui.menu.adddiary.AddFragment;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private ArrayList<Fragment> fragmentList;
+    private Fragment curFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +37,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+        setFragmentList();
+
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.main_frame_layout, HomeFragment.newInstance()).commit();
+        curFragment = fragmentList.get(0);
+
+        transaction.add(R.id.main_frame_layout, curFragment).commit();
 
         binding.mainBottomNavigation.setOnNavigationItemSelectedListener(selectedListener);
+    }
+
+    private void setFragmentList(){
+        fragmentList = new ArrayList<>();
+
+        fragmentList.add(HomeFragment.newInstance());
+        fragmentList.add(UserFragment.newInstance());
+        fragmentList.add(SettingFragment.newInstance());
+        fragmentList.add(AddFragment.newInstance());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -46,19 +63,19 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.main_menu_home:
-                    replaceFragment(HomeFragment.newInstance());
+                    replaceFragment(fragmentList.get(0));
                     break;
 
                 case R.id.main_menu_user:
-                    replaceFragment(UserFragment.newInstance());
+                    replaceFragment(fragmentList.get(1));
                     break;
 
                 case R.id.main_menu_setting:
-                    replaceFragment(SettingFragment.newInstance());
+                    replaceFragment(fragmentList.get(2));
                     break;
 
                 case R.id.main_menu_add_diary:
-                    replaceFragment(AddFragment.newInstance());
+                    replaceFragment(fragmentList.get(3));
                     break;
             }
 
@@ -68,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void replaceFragment(Fragment fragment){
         transaction = manager.beginTransaction();
+        transaction.addToBackStack(curFragment.getClass().getName());
         transaction.replace(R.id.main_frame_layout, fragment).commit();
+
+        curFragment = fragment;
     }
 }

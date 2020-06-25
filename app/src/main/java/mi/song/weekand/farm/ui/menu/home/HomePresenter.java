@@ -11,6 +11,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class HomePresenter implements HomeInterface.Presenter {
     FirebaseFirestore db;
     FirebaseUser user;
@@ -30,9 +33,14 @@ public class HomePresenter implements HomeInterface.Presenter {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
+                    ArrayList<Map<String, Object>> dataList = new ArrayList<>();
+
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        view.setCorpItemData(document.getData());
+                        dataList.add(document.getData());
                     }
+
+                    view.setCorpItemData(dataList);
+
                 } else {
                     view.sendMessage("Load data failed");
                 }
