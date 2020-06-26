@@ -20,6 +20,7 @@ import mi.song.weekand.farm.ui.menu.adddiary.AddFragment;
 import mi.song.weekand.farm.ui.menu.home.HomeFragment;
 import mi.song.weekand.farm.ui.menu.setting.SettingFragment;
 import mi.song.weekand.farm.ui.menu.user.UserFragment;
+import mi.song.weekand.farm.util.ProgressUtil;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         setFragmentList();
+
+        ProgressUtil.getInstance(this); //activity로 progress dialog 초기화 (window bad token 문제)
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();

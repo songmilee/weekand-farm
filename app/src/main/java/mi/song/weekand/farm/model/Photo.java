@@ -1,7 +1,7 @@
 package mi.song.weekand.farm.model;
 
 public class Photo {
-    String uri;
+    String uri = null;
 
     public String getUri() {
         return uri;

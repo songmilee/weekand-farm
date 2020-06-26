@@ -121,7 +121,7 @@ public class AddFragment extends Fragment implements AddInterface.View {
                 photo.setUri(data.getData().toString());
                 Glide.with(this).load(photo.getUri()).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
             }
-        } else if(resultCode == RequestCode.REQ_CAMERA_IMG && resultCode == Activity.RESULT_OK){
+        } else if(requestCode == RequestCode.REQ_CAMERA_IMG && resultCode == Activity.RESULT_OK){
             Glide.with(this).load(photo.getUri()).placeholder(R.drawable.img_placeholder).centerCrop().into(fragmentAddBinding.addFormImg);
         }
     }

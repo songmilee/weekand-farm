@@ -58,15 +58,17 @@ public class AddPresenter implements AddInterface.Presenter {
                     if(task.isSuccessful()) {
                         Uri downUri = task.getResult();
                         insertCorpDiary(title, contents, downUri.toString());
+                        photo.setUri(null);
                     } else {
-                        view.sendMessage("Sorry Error Occurred when upload the image");
+                        view.sendMessage(view.getContext().getString(R.string.error_upload_img));
                     }
 
                     view.closeProgressBar();
                 }
             });
         } else {
-            view.sendMessage("img를 확인해주세요");
+            view.sendMessage(view.getContext().getString(R.string.check_img));
+            view.closeProgressBar();
         }
     }
 
