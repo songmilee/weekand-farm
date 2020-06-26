@@ -38,4 +38,6 @@
     <string name="save_success">일기 저장에 성공하였습니다.</string>
     <string name="save_fail">일기 저장에 실패하였습니다.</string>
     <string name="no_item">아이템이 없습니다. 아이템을 추가해주세요</string>
+
+    <string name="in_progress">잠시만 기다려주세요.</string>
 </resources>

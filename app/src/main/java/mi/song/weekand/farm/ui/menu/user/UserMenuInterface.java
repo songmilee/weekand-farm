@@ -7,6 +7,8 @@ public interface UserMenuInterface {
         void setEditable(boolean setEdit);
         void showEditMenu(boolean isShow);
         void showPhotoDialog();
+        void showProgress();
+        void dismissProgress();
     }
 
     interface Presenter {

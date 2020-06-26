@@ -23,6 +23,7 @@ import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentAddBinding;
 import mi.song.weekand.farm.model.Photo;
 import mi.song.weekand.farm.util.ImageUtils;
+import mi.song.weekand.farm.util.ProgressUtil;
 import mi.song.weekand.farm.util.RequestCode;
 
 public class AddFragment extends Fragment implements AddInterface.View {
@@ -31,11 +32,23 @@ public class AddFragment extends Fragment implements AddInterface.View {
     private AddInterface.Presenter presenter;
     private FirebaseUser user;
 
+    private ProgressUtil progress;
+
     private Photo photo;
 
     public static AddFragment newInstance() {
         AddFragment fragment = new AddFragment();
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        progress = ProgressUtil.getInstance(getContext());
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        presenter = new AddPresenter(this, user);
+        photo = new Photo();
     }
 
     @Override
@@ -48,10 +61,6 @@ public class AddFragment extends Fragment implements AddInterface.View {
     }
 
     private void init(){
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        presenter = new AddPresenter(this, user);
-        photo = new Photo();
-
         fragmentAddBinding.addMenuToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -95,12 +104,12 @@ public class AddFragment extends Fragment implements AddInterface.View {
 
     @Override
     public void showProgressBar() {
-        fragmentAddBinding.addProgress.setVisibility(View.VISIBLE);
+        progress.showDialog();
     }
 
     @Override
     public void closeProgressBar() {
-        fragmentAddBinding.addProgress.setVisibility(View.INVISIBLE);
+        progress.dismissDialog();
     }
 
     @Override

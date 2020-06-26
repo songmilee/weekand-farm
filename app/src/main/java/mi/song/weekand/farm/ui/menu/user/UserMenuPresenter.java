@@ -76,16 +76,20 @@ public class UserMenuPresenter implements UserMenuInterface.Presenter {
 
     @Override
     public boolean updateInfo(String userName, String photoUri, String email) {
+        boolean isUpdate = false;
 
         if(validateDisplayName(userName) || photoUri != null){
+            isUpdate = true;
             updateProfile(userName, photoUri);
         } else {
+            view.dismissProgress();
             return false;
         }
 
         if(validateEmailForm(email)){
             updateEmail(email);
-        } else {
+        } else if(!isUpdate) {
+            view.dismissProgress();
             return false;
         }
 

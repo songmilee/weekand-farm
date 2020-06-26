@@ -29,6 +29,7 @@ import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentUserBinding;
 import mi.song.weekand.farm.model.Photo;
 import mi.song.weekand.farm.util.ImageUtils;
+import mi.song.weekand.farm.util.ProgressUtil;
 import mi.song.weekand.farm.util.RequestCode;
 
 import static android.app.Activity.RESULT_OK;
@@ -43,6 +44,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     private Photo photo = null;
 
     private UserMenuInterface.Presenter presenter;
+    private ProgressUtil progress;
 
     public UserFragment() {
         // Required empty public constructor
@@ -57,6 +59,9 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        progress = ProgressUtil.getInstance(getContext());
+        photo = new Photo();
     }
 
     @Override
@@ -72,8 +77,6 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
     }
 
     private void init(){
-        photo = new Photo();
-
         binding.userToolbar.setOnMenuItemClickListener(v ->{
             int id = v.getItemId();
             switch (id){
@@ -84,6 +87,7 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
                     break;
 
                 case R.id.user_menu_ok:
+                    progress.showDialog();
                     updateInfo();
                     break;
 
@@ -139,6 +143,8 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
 
     @Override
     public void sendMessage(String msg) {
+        progress.dismissDialog();
+
         if(msg != null)
             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
         else
@@ -169,5 +175,15 @@ public class UserFragment extends Fragment implements UserMenuInterface.View {
         } else if(requestCode == RequestCode.REQ_CAMERA_IMG && resultCode == RESULT_OK){
             Glide.with(this).load(photo.getUri()).placeholder(R.drawable.ic_person_black_24dp).centerCrop().into(binding.userInfoProfile);
         }
+    }
+
+    @Override
+    public void showProgress() {
+        progress.showDialog();
+    }
+
+    @Override
+    public void dismissProgress() {
+        progress.dismissDialog();
     }
 }
