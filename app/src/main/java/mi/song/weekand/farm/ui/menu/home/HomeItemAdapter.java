@@ -1,6 +1,5 @@
 package mi.song.weekand.farm.ui.menu.home;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,11 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeVH
         this.itemList = new ArrayList<>(confirmSet);
 
         notifyDataSetChanged();
+    }
+
+    public void addData(Map<String, Object> item){
+        itemList.add(0, item);
+        notifyItemInserted(0);
     }
 
     @NonNull

@@ -42,4 +42,6 @@
     <string name="error_upload_img">이미지 업로딩에 실패하였습니다.</string>
 
     <string name="in_progress">잠시만 기다려주세요.</string>
+
+    <string name="no_update">업데이트 된 것이 없습니다.</string>
 </resources>

@@ -28,9 +28,13 @@ public class HomePresenter implements HomeInterface.Presenter {
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void getCorpItemList(){
+    public void getCorpItemList(Long time){
         //복합 색인 사용 설정
-        ref.orderBy("createdat").whereEqualTo("uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        ref.orderBy("createdat")
+            .whereGreaterThan("createdat", time)
+            .whereEqualTo("uid", user.getUid())
+            .limit(10)
+            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

@@ -1,21 +1,18 @@
 package mi.song.weekand.farm.ui.menu.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentHomeBinding;
@@ -24,7 +21,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
     FragmentHomeBinding binding;
     HomeItemAdapter itemAdapter;
     HomeInterface.Presenter presenter;
-    Set<Map<String, Object>> corpList;
+    Long curTime = 0L;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -36,10 +33,9 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
         super.onCreate(savedInstanceState);
 
         presenter = new HomePresenter(this);
-        corpList = new HashSet<>();
         itemAdapter = new HomeItemAdapter();
 
-        presenter.getCorpItemList();
+        presenter.getCorpItemList(curTime);
     }
 
     @Override
@@ -57,10 +53,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
         binding.homeItemList.setAdapter(itemAdapter);
         binding.homeItemList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        itemAdapter.setData(corpList);
-        presenter.getCorpItemList();
-
-        if(corpList.size() > 0){
+        if(itemAdapter.getItemCount() > 0) {
             binding.homeItemList.setVisibility(View.VISIBLE);
             binding.noItemMsg.setVisibility(View.INVISIBLE);
         }
@@ -73,18 +66,22 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
 
     @Override
     public void setCorpItemData(ArrayList<Map<String, Object>> dataList) {
-        binding.homeItemList.setVisibility(View.VISIBLE);
-        binding.noItemMsg.setVisibility(View.INVISIBLE);
+        if(dataList.size() > 0) {
+            binding.homeItemList.setVisibility(View.VISIBLE);
+            binding.noItemMsg.setVisibility(View.INVISIBLE);
 
-        for(Map<String, Object> data : dataList)
-            corpList.add(data);
-
-        itemAdapter.setData(corpList);
+            for (Map<String, Object> data : dataList) {
+                curTime = (Long) data.get("createdat");
+                itemAdapter.addData(data);
+            }
+        } else {
+            sendMessage(getString(R.string.no_update));
+        }
     }
 
     @Override
     public void onRefresh() {
-
+        presenter.getCorpItemList(curTime);
         binding.homeRefreshLayout.setRefreshing(false);
     }
 }
