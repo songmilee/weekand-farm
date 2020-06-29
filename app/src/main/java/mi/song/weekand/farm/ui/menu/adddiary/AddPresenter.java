@@ -3,7 +3,6 @@ package mi.song.weekand.farm.ui.menu.adddiary;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -73,11 +72,12 @@ public class AddPresenter implements AddInterface.Presenter {
     }
 
     private void insertCorpDiary(String title, String contents, String url){
-        HashMap<String, String> data = new HashMap<>();
+        HashMap<String, Object> data = new HashMap<>();
         data.put("uid", user.getUid());
         data.put("title", title);
         data.put("contents", contents);
         if(url != null) data.put("url", url);
+        data.put("createdat", System.currentTimeMillis());
 
         ref.document()
                 .set(data)

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.Set;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment implements HomeInterface.View {
+public class HomeFragment extends Fragment implements HomeInterface.View, SwipeRefreshLayout.OnRefreshListener {
     FragmentHomeBinding binding;
     HomeItemAdapter itemAdapter;
     HomeInterface.Presenter presenter;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
 
         presenter = new HomePresenter(this);
         corpList = new HashSet<>();
+        itemAdapter = new HomeItemAdapter();
 
         presenter.getCorpItemList();
     }
@@ -50,7 +52,8 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
     }
 
     private void init(){
-        itemAdapter = new HomeItemAdapter();
+        binding.homeRefreshLayout.setOnRefreshListener(this);
+
         binding.homeItemList.setAdapter(itemAdapter);
         binding.homeItemList.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -77,5 +80,11 @@ public class HomeFragment extends Fragment implements HomeInterface.View {
             corpList.add(data);
 
         itemAdapter.setData(corpList);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        binding.homeRefreshLayout.setRefreshing(false);
     }
 }

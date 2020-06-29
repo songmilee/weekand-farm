@@ -29,7 +29,8 @@ public class HomePresenter implements HomeInterface.Presenter {
     }
 
     public void getCorpItemList(){
-        ref.whereEqualTo("uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        //복합 색인 사용 설정
+        ref.orderBy("createdat").whereEqualTo("uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -42,7 +43,8 @@ public class HomePresenter implements HomeInterface.Presenter {
                     view.setCorpItemData(dataList);
 
                 } else {
-                    view.sendMessage("Load data failed");
+                    task.getException().printStackTrace();
+                    view.sendMessage(task.getException().getMessage());
                 }
             }
         });
