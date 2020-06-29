@@ -14,11 +14,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 public class HomePresenter implements HomeInterface.Presenter {
     FirebaseFirestore db;
     FirebaseUser user;
     CollectionReference ref;
     HomeInterface.View view;
+
+    Observable firebaseResult;
 
     public HomePresenter(HomeInterface.View view){
         this.view = view;
@@ -28,29 +32,40 @@ public class HomePresenter implements HomeInterface.Presenter {
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void getCorpItemList(Long time){
-        //복합 색인 사용 설정
-        ref.orderBy("createdat")
-            .whereGreaterThan("createdat", time)
-            .whereEqualTo("uid", user.getUid())
-            .limit(10)
-            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    ArrayList<Map<String, Object>> dataList = new ArrayList<>();
+    //rxjava2를 이용한 firestore 데이터 읽어오기
+    private void createObserver(Long time){
+        firebaseResult = Observable.create(subscriber -> {
+            //복합색인 설정
+            ref.orderBy("createdat")
+                    .whereGreaterThan("createdat", time)
+                    .whereEqualTo("uid", user.getUid())
+                    .limit(10)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-                    for(QueryDocumentSnapshot document : task.getResult()){
-                        dataList.add(document.getData());
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        ArrayList<Map<String, Object>> dataList = new ArrayList<>();
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            dataList.add(document.getData());
+                        }
+
+                        subscriber.onNext(dataList);
+                        subscriber.onComplete();
+                    } else {
+                        subscriber.onError(task.getException());
                     }
-
-                    view.setCorpItemData(dataList);
-
-                } else {
-                    task.getException().printStackTrace();
-                    view.sendMessage(task.getException().getMessage());
                 }
-            }
+            });
         });
+    }
+
+    public void getCorpItemList(Long time){
+        createObserver(time);
+
+        firebaseResult.subscribe(
+                next -> view.setCorpItemData((ArrayList<Map<String, Object>>)next),
+                error -> view.sendMessage(((Exception)error).getMessage())
+        );
     }
 }
