@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -33,7 +34,7 @@ public class HomePresenter implements HomeInterface.Presenter {
     }
 
     //rxjava2를 이용한 firestore 데이터 읽어오기
-    private void createObserver(Long time){
+    private void observeByTime(Long time){
         firebaseResult = Observable.create(subscriber -> {
             //복합색인 설정
             ref.orderBy("createdat")
@@ -60,9 +61,43 @@ public class HomePresenter implements HomeInterface.Presenter {
         });
     }
 
-    public void getCorpItemList(Long time){
-        createObserver(time);
+    private void observeByMax(){
+        firebaseResult = Observable.create(subscriber -> {
+            //복합색인 설정
+            ref.orderBy("createdat", Query.Direction.DESCENDING)
+                    .whereEqualTo("uid", user.getUid())
+                    .limit(10)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        ArrayList<Map<String, Object>> dataList = new ArrayList<>();
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            dataList.add(0, document.getData());
+                        }
+
+                        subscriber.onNext(dataList);
+                        subscriber.onComplete();
+                    } else {
+                        subscriber.onError(task.getException());
+                    }
+                }
+            });
+        });
+    }
+
+    public void getCorpItemList(){
+        observeByMax();
+        publishCorpList();
+    }
+
+    public void getCorpItemList(Long time){
+        observeByTime(time);
+        publishCorpList();
+    }
+
+    private void publishCorpList(){
         firebaseResult.subscribe(
                 next -> view.setCorpItemData((ArrayList<Map<String, Object>>)next),
                 error -> view.sendMessage(((Exception)error).getMessage())

@@ -34,8 +34,8 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
 
         presenter = new HomePresenter(this);
         itemAdapter = new HomeItemAdapter();
-
-        presenter.getCorpItemList(curTime);
+        
+        presenter.getCorpItemList();
     }
 
     @Override

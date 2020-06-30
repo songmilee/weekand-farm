@@ -12,6 +12,7 @@ public interface HomeInterface {
     }
 
     interface Presenter{
+        void getCorpItemList();
         void getCorpItemList(Long time);
     }
 }
