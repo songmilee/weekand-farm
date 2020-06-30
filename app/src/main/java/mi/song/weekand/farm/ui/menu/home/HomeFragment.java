@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import mi.song.weekand.farm.R;
@@ -21,7 +20,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
     FragmentHomeBinding binding;
     HomeItemAdapter itemAdapter;
     HomeInterface.Presenter presenter;
-    Long curTime = 0L;
+    HomeScrollListener scrollListener;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -34,8 +33,9 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
 
         presenter = new HomePresenter(this);
         itemAdapter = new HomeItemAdapter();
-        
-        presenter.getCorpItemList();
+        scrollListener = new HomeScrollListener(presenter);
+
+        presenter.getCorpItemList(false);
     }
 
     @Override
@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
 
         binding.homeItemList.setAdapter(itemAdapter);
         binding.homeItemList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.homeItemList.addOnScrollListener(scrollListener);
 
         if(itemAdapter.getItemCount() > 0) {
             binding.homeItemList.setVisibility(View.VISIBLE);
@@ -65,23 +66,16 @@ public class HomeFragment extends Fragment implements HomeInterface.View, SwipeR
     }
 
     @Override
-    public void setCorpItemData(ArrayList<Map<String, Object>> dataList) {
-        if(dataList.size() > 0) {
-            binding.homeItemList.setVisibility(View.VISIBLE);
-            binding.noItemMsg.setVisibility(View.INVISIBLE);
+    public void setCorpItemData(Map<String, Object> data) {
+        binding.homeItemList.setVisibility(View.VISIBLE);
+        binding.noItemMsg.setVisibility(View.INVISIBLE);
 
-            for (Map<String, Object> data : dataList) {
-                curTime = (Long) data.get("createdat");
-                itemAdapter.addData(data);
-            }
-        } else {
-            sendMessage(getString(R.string.no_update));
-        }
+        itemAdapter.addData(data);
     }
 
     @Override
     public void onRefresh() {
-        presenter.getCorpItemList(curTime);
+        presenter.getCorpItemList(true);
         binding.homeRefreshLayout.setRefreshing(false);
     }
 }
