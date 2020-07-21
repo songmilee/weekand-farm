@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import mi.song.weekand.farm.R;
-import mi.song.weekand.farm.databinding.FragmentUserBinding;
+import mi.song.weekand.farm.databinding.ActivityUserBinding;
 import mi.song.weekand.farm.model.Photo;
 import mi.song.weekand.farm.util.ImageUtils;
 import mi.song.weekand.farm.util.ProgressUtil;
@@ -26,7 +26,7 @@ import mi.song.weekand.farm.util.RequestCode;
 public class UserActivity extends AppCompatActivity implements UserInterface.View {
     private String TAG = UserActivity.class.getSimpleName();
 
-    private FragmentUserBinding binding;
+    private ActivityUserBinding binding;
     private FirebaseUser user;
 
     private boolean isEdit = false;
@@ -42,7 +42,7 @@ public class UserActivity extends AppCompatActivity implements UserInterface.Vie
         progress = ProgressUtil.getInstance(getContext());
         photo = new Photo();
 
-        binding = DataBindingUtil.setContentView(this, R.layout.fragment_user);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user);
         binding.setUser(this);
 
         init();
