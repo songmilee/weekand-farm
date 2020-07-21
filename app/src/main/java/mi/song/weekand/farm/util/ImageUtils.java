@@ -1,5 +1,6 @@
 package mi.song.weekand.farm.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,8 +21,14 @@ import mi.song.weekand.farm.model.Photo;
 
 public class ImageUtils {
     private final String TAG = ImageUtils.class.getSimpleName();
+    private Activity activity;
     private Fragment fragment;
     private Context mContext;
+
+    public ImageUtils(Activity activity){
+        this.activity = activity;
+        mContext = activity.getBaseContext();
+    }
 
     public ImageUtils(Fragment fragment){
         this.fragment = fragment;
@@ -53,8 +60,8 @@ public class ImageUtils {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        startActivityForResult(intent, RequestCode.REQ_PHOTO_IMG);
 
-        fragment.startActivityForResult(intent, RequestCode.REQ_PHOTO_IMG);
     }
 
     private void getImageByCamera(Photo photo){
@@ -77,11 +84,19 @@ public class ImageUtils {
 
                     photo.setUri(pUri.toString());
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, pUri);
-                    fragment.startActivityForResult(intent, RequestCode.REQ_CAMERA_IMG);
+                    startActivityForResult(intent, RequestCode.REQ_CAMERA_IMG);
                 }
             } catch (Exception e) {
                 Log.d(TAG, "error occured : " + e.getMessage());
             }
+        }
+    }
+
+    private void startActivityForResult(Intent intent, int reqCode){
+        if (activity != null) {
+            activity.startActivityForResult(intent, reqCode);
+        } else {
+            fragment.startActivityForResult(intent, reqCode);
         }
     }
 }

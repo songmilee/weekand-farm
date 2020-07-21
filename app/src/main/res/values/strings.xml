@@ -28,6 +28,7 @@
     </string-array>
 
     <string-array name="setting_menu_list">
+        <item name="user_info">사용자 정보</item>
         <item name="sw_info">SW 정보</item>
         <item name="log_out">Log out</item>
     </string-array>

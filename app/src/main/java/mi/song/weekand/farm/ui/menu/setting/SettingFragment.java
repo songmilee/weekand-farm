@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import mi.song.weekand.farm.R;
 import mi.song.weekand.farm.databinding.FragmentSettingBinding;
 import mi.song.weekand.farm.ui.login.LoginActivity;
+import mi.song.weekand.farm.ui.menu.user.UserActivity;
 
 
 public class SettingFragment extends Fragment {
@@ -52,13 +53,22 @@ public class SettingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
+                    case 0:
+                        launchUserInfo();
+                        break;
                     case 1:
+                        break;
+                    case 2:
                         logOut();
                         launchLoginActivity();
                         break;
                 }
             }
         });
+    }
+
+    private void launchUserInfo(){
+        startActivity(new Intent(getContext(), UserActivity.class));
     }
 
     private void logOut(){
