@@ -1,8 +1,8 @@
-package mi.song.weekand.farm.ui.menu.user;
+package mi.song.weekand.farm.ui.user;
 
 import mi.song.weekand.farm.base.BaseInterface;
 
-public interface UserMenuInterface {
+public interface UserInterface {
     interface View extends BaseInterface.View{
         void setEditable(boolean setEdit);
         void showEditMenu(boolean isShow);

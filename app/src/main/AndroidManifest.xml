@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.menu.user.UserActivity"/>
+        <activity android:name=".ui.user.UserActivity"/>
     </application>
 
 </manifest>

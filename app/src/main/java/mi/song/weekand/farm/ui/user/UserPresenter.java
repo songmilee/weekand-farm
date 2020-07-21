@@ -1,4 +1,4 @@
-package mi.song.weekand.farm.ui.menu.user;
+package mi.song.weekand.farm.ui.user;
 
 import android.net.Uri;
 import android.text.TextUtils;
@@ -7,13 +7,13 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class UserMenuPresenter implements UserMenuInterface.Presenter {
-    private String TAG = UserMenuPresenter.class.getSimpleName();
+public class UserPresenter implements UserInterface.Presenter {
+    private String TAG = UserPresenter.class.getSimpleName();
 
     private FirebaseUser user;
-    private UserMenuInterface.View view;
+    private UserInterface.View view;
 
-    public UserMenuPresenter(UserMenuInterface.View view, FirebaseUser user){
+    public UserPresenter(UserInterface.View view, FirebaseUser user){
         this.view = view;
         this.user = user;
     }

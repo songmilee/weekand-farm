@@ -7,13 +7,13 @@
     <data>
         <variable
             name="user"
-            type="mi.song.weekand.farm.ui.menu.user.UserActivity" />
+            type="mi.song.weekand.farm.ui.user.UserActivity" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="mi.song.weekand.farm.ui.menu.user.UserActivity">
+        tools:context=".ui.user.UserActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/user_layout"

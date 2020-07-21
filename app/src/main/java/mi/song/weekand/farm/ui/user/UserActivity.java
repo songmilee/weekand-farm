@@ -1,4 +1,4 @@
-package mi.song.weekand.farm.ui.menu.user;
+package mi.song.weekand.farm.ui.user;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +23,7 @@ import mi.song.weekand.farm.util.ImageUtils;
 import mi.song.weekand.farm.util.ProgressUtil;
 import mi.song.weekand.farm.util.RequestCode;
 
-public class UserActivity extends AppCompatActivity implements UserMenuInterface.View {
+public class UserActivity extends AppCompatActivity implements UserInterface.View {
     private String TAG = UserActivity.class.getSimpleName();
 
     private FragmentUserBinding binding;
@@ -32,7 +32,7 @@ public class UserActivity extends AppCompatActivity implements UserMenuInterface
     private boolean isEdit = false;
     private Photo photo = null;
 
-    private UserMenuInterface.Presenter presenter;
+    private UserInterface.Presenter presenter;
     private ProgressUtil progress;
 
     @Override
@@ -74,7 +74,7 @@ public class UserActivity extends AppCompatActivity implements UserMenuInterface
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         //set presenter
-        presenter = new UserMenuPresenter(this, user);
+        presenter = new UserPresenter(this, user);
 
         //set user info
         binding.userInfoName.setText(user.getDisplayName());
