@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        curFragment = fragmentList.get(0);
+        curFragment = fragmentList.get(1);
 
         transaction.add(R.id.main_frame_layout, curFragment).commit();
 
@@ -54,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private void setFragmentList(){
         fragmentList = new ArrayList<>();
 
-        fragmentList.add(HomeFragment.newInstance());
-        fragmentList.add(UserFragment.newInstance());
-        fragmentList.add(SettingFragment.newInstance());
         fragmentList.add(AddFragment.newInstance());
+        fragmentList.add(HomeFragment.newInstance());
+        fragmentList.add(SettingFragment.newInstance());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,20 +64,16 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()){
-                case R.id.main_menu_home:
+                case R.id.main_menu_add_diary:
                     replaceFragment(fragmentList.get(0));
                     break;
 
-                case R.id.main_menu_user:
+                case R.id.main_menu_home:
                     replaceFragment(fragmentList.get(1));
                     break;
 
                 case R.id.main_menu_setting:
                     replaceFragment(fragmentList.get(2));
-                    break;
-
-                case R.id.main_menu_add_diary:
-                    replaceFragment(fragmentList.get(3));
                     break;
             }
 
